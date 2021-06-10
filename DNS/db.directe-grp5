@@ -1,0 +1,18 @@
+$TTL	604800
+@	IN	SOA	dns.groupe5.com.  admin.groupe5.com. (
+			      5		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )       ; Negative Cache TTL
+
+@	  IN	 NS	dns.groupe5.com.
+dns       IN     A      192.168.5.16
+proxmox   IN     A      192.168.5.253
+pfsense   IN     A      192.168.5.254
+nginx1    IN     A      192.168.5.200
+nginx2    IN     A      192.168.5.201
+bastion   IN     A      192.168.5.21
+mongoDB   IN     A      192.168.5.23
+splunk    IN     A      192.168.5.14
+haproxy   IN     A      192.168.5.20

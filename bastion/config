@@ -1,0 +1,20 @@
+#config file use for SSH bastion
+HashKnownHosts=no
+StrictHostKeyChecking=accept-new
+
+
+
+# Config put on the client ssh config
+Host 192.168.5.21
+	User admin
+	ForwardAgent no
+
+
+# Config use on bastion server for ssh forward
+Host *
+  User admin
+  ForwardAgent yes
+
+Host 192.168.5.253
+  User root
+  ForwardAgent no
