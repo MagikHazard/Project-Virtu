@@ -1,0 +1,23 @@
+---
+# tasks file for main-updates#
+
+- name: PACKAGES | Update on lastest version
+  apt:
+    name: "*"
+    state: latest
+
+- name: OS | Upgrade (apt-get dist-upgrade)
+  apt:
+    upgrade: dist
+
+- name: PACKAGES | Remove useless packages from the cache
+  apt:
+    autoclean: yes
+
+- name: PACKAGES | Remove dependencies that are no longer required
+  apt:
+    autoremove: yes
+
+- name: REBOOT | Check if a reboot is needed on all servers
+  register: reboot_required_file
+  stat: path=/var/run/reboot-required get_md5=no

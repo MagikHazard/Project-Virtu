@@ -1,0 +1,36 @@
+- name: List of all packages
+  apt:
+    upgrade: dist
+  check_mode: yes
+  register: result
+  changed_when: false
+
+- name: Removing the old version of update.txt
+  file:
+    path: /tmp/update.txt
+    state: absent
+  changed_when: false
+
+- name: Create a file with result content
+  lineinfile:
+    path: /tmp/update.txt
+    line: "{{ result.stdout }}"
+    state: present
+    create: yes
+
+- name: Time
+  lineinfile:
+    path: /tmp/update.txt
+    line: "#{{ ansible_date_time.date }} - {{ ansible_date_time.time }}"
+    insertbefore: BOF
+  changed_when: false
+
+- name: Sending an e-mail using the remote machine, not the Ansible controller node
+  community.general.mail:
+    host: localhost
+    port: 25
+    to: it@mipsology.com, bastien.sergent@mipsology.com
+    subject: Ansible-report made by Bastien Sergent
+    body: Task done on {{ ansible_hostname }} has been successful. Please look at the report for more information. Best Regard
+    attach:
+      - /tmp/update.txt
